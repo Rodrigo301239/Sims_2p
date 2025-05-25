@@ -1,5 +1,11 @@
+import random
+
+
+
 class Personagem:
-    def __init__(self, nome):  # Adicionei o parâmetro nome aqui
+    numero = random.randint(1, 10)
+
+    def __init__(self, nome):  
         self.nome = nome
         self.energia = 100
         self.fome = 100
@@ -9,6 +15,7 @@ class Personagem:
         self.HabSkill = 0
         self.trabalho = None
         self.mental = 100
+        self.dia = 0
     
     def comer(self):
         if self.dinheiro < 10:
@@ -16,22 +23,31 @@ class Personagem:
         else:
             self.dinheiro -= 10
             self.fome = min(100, self.fome + 30)
+            self.mental = min (100, self.mental + 20)
     
     def dormir(self):
+        
+
         if self.energia == 100:
             return f"{self.nome} voce não esta sonolento"
         else:
             self.energia = min (100,self.energia + 80)
-            self.fome = max (0, self.fome -5)
-            self.higiene = max (0, self.higiene - 30)
-            self.mental = max (0, self.mental + 30)
+            self.fome = max (0, self.fome - 15)
+            self.higiene = min (100, self.higiene + 20)
+            self.mental = min (100, self.mental + 30)
+            self.dia += 1
 
     def trabalhar(self):
         if self.energia < 35:
             return f"{self.nome} esta sem energia para trabalhar"
+
         else:
             self.dinheiro += 40
-            self.higiene = max (0,self.higiene - 30)
+            self.higiene = max (0,self.higiene - 15)
+            self.energia = max (0,self.energia - 30)
+            self.mental = max (0,self.mental - 30)
+            self.fome = max (0,self.fome - 40)
+
 
             
     def treinar(self):
@@ -44,9 +60,11 @@ class Personagem:
             self.mental = max (0, self.mental + 30)
     
     def mostrar_status(self):
-        return f"{self.nome}\nfome: {self.fome}🍖\nEnergia: {self.energia}🔋\nmental:{self.mental}🧠\nHigiene: {self.higiene}🧻\nDinheiro: {self.dinheiro}💰"
+        return f"Dia: {self.dia}\n{self.nome}\n\nfome: {self.fome}🍖\nEnergia: {self.energia}🔋\nmental:{self.mental}🧠\nHigiene: {self.higiene}🧻\nDinheiro: {self.dinheiro}💰"
     
-    
+    def escolher_profissao(self):
+
+        return f"{self.nome} esta cansado de apenas trabalhar e dormir, escolha uma das opções: "
     
 
 
