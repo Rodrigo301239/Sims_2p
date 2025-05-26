@@ -40,6 +40,7 @@ class SimsApp:
             pady=5
         )
         self.botao_trabalhar.pack(pady=10)
+        
 
         self.label_mensagem = tk.Label(root, text="", font=("Arial", 12), bg='white')
         self.label_mensagem.pack(pady=10)
@@ -60,18 +61,31 @@ class SimsApp:
         self.label_mensagem.config(text=mensagem)
         self.atualizar_status()
     
-    #def acao_botao_artes_marciais(self):
-
+    def acao_botao_artes_marciais(self):
+        mensagem = self.personagem.treinar("Artes marciais")
+        self.label_mensagem.config(text=mensagem)
+        self.botao_treinar_skate.pack_forget()
+        self.atualizar_status()
+        
+    def acao_botao_skate(self):
+        mensagem = self.personagem.treinar("Skatista")
+        self.label_mensagem.config(text=mensagem)
+        self.botao_treinar_artes.pack_forget()
+        self.atualizar_status()
+    
 
     def atualizar_status(self):
-        if self.personagem.dia == 555:
+        if self.personagem.dia == 5:
             self.label_status.config(text=self.personagem.escolher_profissao())
 
             self.botao_comer.pack_forget()
             self.botao_dormir.pack_forget()
             self.botao_trabalhar.pack_forget()
-
-            self.botao_continuar = tk.Button(
+            
+           
+            
+            
+            self.botao_treinar_artes = tk.Button(
             root,
             text="Treinar artes marciais",
             command=self.acao_botao_artes_marciais,
@@ -79,9 +93,25 @@ class SimsApp:
             padx=10,
             pady=5
             )
-            self.botao_continuar.pack(pady=10)
+            self.botao_treinar_artes.pack(pady=10)
 
+            self.botao_treinar_skate = tk.Button(
+            root,
+            text="Treinar Skate",
+            command=self.acao_botao_skate,
+            font=("Arial", 12),
+            padx=10,
+            pady=5
+            )
+            self.botao_treinar_skate.pack(pady=10)
+            self.personagem.dia += 1
+            
+        
         else:
+            self.botao_comer.pack()       # Faz o botão aparecer de novo
+            self.botao_dormir.pack()
+            self.botao_trabalhar.pack()
+
             self.label_status.config(text=self.personagem.mostrar_status())
         
 

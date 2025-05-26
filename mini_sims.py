@@ -1,7 +1,5 @@
 import random
 
-
-
 class Personagem:
     numero = random.randint(1, 10)
 
@@ -26,8 +24,6 @@ class Personagem:
             self.mental = min (100, self.mental + 20)
     
     def dormir(self):
-        
-
         if self.energia == 100:
             return f"{self.nome} voce não esta sonolento"
         else:
@@ -50,7 +46,10 @@ class Personagem:
 
 
             
-    def treinar(self):
+    def treinar(self,treino):
+        self.skill = treino
+        self.HabSkill += 1
+        
         if self.HabSkill > 100:
             return f"{self.nome} já é mestre em {self.skill}"
         else:
@@ -65,13 +64,32 @@ class Personagem:
     def escolher_profissao(self):
 
         return f"{self.nome} esta cansado de apenas trabalhar e dormir, escolha uma das opções: "
+
+class Trabalho:
+
+    def __init__(self,carreira,cargo,salarios,energia,fome,higiene,mental,saude):
+        self.__carreira = carreira
+        self.__cargo = cargo
+        self.__salarios = salarios
+        self.__energia = energia
+        self.__fome = fome
+        self.__higiene = higiene
+        self.__mental = mental
+        self.__saude = saude
     
-
-
+    @property
+    def informacoes (self):
+        return f"Carreira: {self.__carreira}\nCargo : {self.__cargo}\nSalario : {self.__salarios}\nEnergia : {self.__energia}\nFome : {self.__fome}\nHigiene : {self.__higiene}\nMental : {self.__mental}\nSaude : {self.__saude}"
     
-
+    @property
+    def carreira (self):
+        return self.__carreira
     
-
+    def ver_cargo (self,nivel):
+        return self.__cargo[nivel-1]
+        
+    
+    
 if __name__ == "__main__":
     obj1 = Personagem("Salésio")
     print(obj1.nome)
